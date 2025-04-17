@@ -1,0 +1,59 @@
+#!/bin/bash
+# sysinfo page - un script pour produire un fichier html
+title="systemed'information"
+timestemps=$(date +"%x %r %z")
+Right_now="mise à jour du systeme le $timestemps par $USER"
+
+
+### fonction
+system_info()
+{
+	echo "systeme d'information"
+}
+show_uptime()
+{
+     	    echo "<h1>show_uptime</h1>"
+	    echo "<pre>"
+	    uptime
+	    echo "</pre>"
+}
+
+
+drive_space()
+{
+	echo "<h1>drive_space</h1>"
+	echo "<pre>"
+	df
+	echo "</pre>"
+}
+home_space()
+{
+	echo "<h1>home_space</h1>"
+	echo "<pre>"
+	du -s /home/* | sort -nr
+	echo "</pre>"
+}
+
+
+
+
+
+
+
+cat <<_EOF_
+<html>
+<head>	
+<title>$title</title>
+</head>
+<body>
+<h1>hostname:$HOSTNAME</h1>
+<p> Le contenu de la page:$title </p>
+<p> $Right_now </p>
+<br>$(system_info)
+<br>$(show_uptime)
+<br>$(drive_space)
+<br>$(home_space)
+</body>
+</html>
+_EOF_
+
